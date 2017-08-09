@@ -1,10 +1,12 @@
 package com.example.admin.retrofitokhttp.model;
 
+import com.example.admin.retrofitokhttp.retrofit.basebean.IBaseBean;
+
 /**
  * Created by master on 2017/4/12 0012.
  */
 
-public class ImageCodeBean extends BaseBean {
+public class ImageCodeBean extends BaseBean implements IBaseBean{
     private BodyEntity body;
 
     public BodyEntity getBody() {

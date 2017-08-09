@@ -25,4 +25,34 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:id="@+id/imageView" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="81dp"
+        android:id="@+id/button" />
+
+    <Button
+        android:text="stopPush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:id="@+id/stopPush" />
+
+    <Button
+        android:text="resumePush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopPush"
+        android:layout_alignRight="@+id/stopPush"
+        android:layout_alignEnd="@+id/stopPush"
+        android:id="@+id/resumePush" />
 </RelativeLayout>
