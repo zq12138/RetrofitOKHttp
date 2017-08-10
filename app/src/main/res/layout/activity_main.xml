@@ -55,4 +55,13 @@
         android:layout_alignRight="@+id/stopPush"
         android:layout_alignEnd="@+id/stopPush"
         android:id="@+id/resumePush" />
+
+    <Button
+        android:text="微信分享"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/wx_share" />
 </RelativeLayout>

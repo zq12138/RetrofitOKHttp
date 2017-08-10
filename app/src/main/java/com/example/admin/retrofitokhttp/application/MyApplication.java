@@ -2,6 +2,8 @@ package com.example.admin.retrofitokhttp.application;
 
 import android.app.Application;
 
+import com.example.admin.retrofitokhttp.wxapi.WXAPI;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -10,10 +12,12 @@ import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        WXAPI.registeApi(this);
     }
 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -15,6 +16,14 @@ import android.widget.ImageView;
 import com.example.admin.retrofitokhttp.model.ImageCodeBean;
 import com.example.admin.retrofitokhttp.retrofit.RequestCommand;
 import com.example.admin.retrofitokhttp.retrofit.callback.RequesCallBack;
+import com.example.admin.retrofitokhttp.wxapi.WXAPI;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 
 import java.util.List;
 
@@ -24,7 +33,12 @@ import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
     ImageView imageView;
-    Button btn,stopPush,resumePush;
+    Button btn, stopPush, resumePush, wx_share;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +46,26 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         imageView = (ImageView) findViewById(R.id.imageView);
-        btn=(Button)findViewById(R.id.button);
-        stopPush=(Button)findViewById(R.id.stopPush);
-        resumePush=(Button)findViewById(R.id.resumePush);
+        btn = (Button) findViewById(R.id.button);
+        stopPush = (Button) findViewById(R.id.stopPush);
+        resumePush = (Button) findViewById(R.id.resumePush);
+        wx_share = (Button) findViewById(R.id.wx_share);
+        wx_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WXWebpageObject webpage = new WXWebpageObject();
+                webpage.webpageUrl = "www.baidu.com";
+                WXMediaMessage msg = new WXMediaMessage(webpage);
+                msg.title = "asfds";
+                msg.description = "fsfdsgfd";
+
+                SendMessageToWX.Req req = new SendMessageToWX.Req();
+                req.transaction = buildTransaction("webpage");
+                req.message = msg;
+                req.scene = SendMessageToWX.Req.WXSceneTimeline;
+                WXAPI.createIWXAPI(MainActivity.this).sendReq(req);
+            }
+        });
         stopPush.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +104,9 @@ public class MainActivity extends BaseActivity {
                 }, "3");
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public static boolean isWeixinAvilible(Context context) {
@@ -91,5 +125,48 @@ public class MainActivity extends BaseActivity {
         return false;
     }
 
+    public void shareTxtWX() {
+        WXAPI wxapi=new WXAPI(this);
+        wxapi.wxSceneTimeline();
+    }
 
+    private String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }

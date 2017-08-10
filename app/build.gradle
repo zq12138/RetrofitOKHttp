@@ -54,4 +54,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'cn.jiguang.sdk:jpush:3.0.3'  // 此处以JPush 3.0.3 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.1.1'  // 此处以JCore 1.1.1 版本为例。
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
