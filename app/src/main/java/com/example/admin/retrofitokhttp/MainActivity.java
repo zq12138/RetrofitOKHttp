@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import com.example.admin.retrofitokhttp.model.ImageCodeBean;
 import com.example.admin.retrofitokhttp.retrofit.RequestCommand;
 import com.example.admin.retrofitokhttp.retrofit.callback.RequesCallBack;
+import com.example.admin.retrofitokhttp.widget.CalendarView;
 import com.example.admin.retrofitokhttp.wxapi.WXAPI;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -34,17 +36,20 @@ import retrofit2.Response;
 public class MainActivity extends BaseActivity {
     ImageView imageView;
     Button btn, stopPush, resumePush, wx_share;
+    CalendarView calendarView;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        calendarView=(CalendarView)findViewById(R.id.cancel_action);
+        calendarView.setDate(2017,9);
         imageView = (ImageView) findViewById(R.id.imageView);
         btn = (Button) findViewById(R.id.button);
         stopPush = (Button) findViewById(R.id.stopPush);
@@ -54,11 +59,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 WXWebpageObject webpage = new WXWebpageObject();
-                webpage.webpageUrl = "www.baidu.com";
+                webpage.webpageUrl = "https://www.baidu.com";
                 WXMediaMessage msg = new WXMediaMessage(webpage);
                 msg.title = "asfds";
-                msg.description = "fsfdsgfd";
-
+                msg.description = "张咪四个几十个覅第三个if多少";
+                msg.setThumbImage(bitmap);
                 SendMessageToWX.Req req = new SendMessageToWX.Req();
                 req.transaction = buildTransaction("webpage");
                 req.message = msg;
@@ -91,6 +96,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +105,8 @@ public class MainActivity extends BaseActivity {
                     public void onResponseSuccess(Response response) {
                         ImageCodeBean imageCodeBean = (ImageCodeBean) response.body();
                         byte[] image = Base64.decode(imageCodeBean.getBody().getIndentify(), Base64.DEFAULT);
-                        imageView.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.length));
+                        bitmap=BitmapFactory.decodeByteArray(image, 0, image.length);
+                        imageView.setImageBitmap(bitmap);
                     }
                 }, "3");
             }
