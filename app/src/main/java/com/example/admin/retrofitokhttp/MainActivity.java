@@ -33,18 +33,13 @@ import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import retrofit2.Response;
 
-/**
- * ---------
- */
+/***/
 
 public class MainActivity extends BaseActivity {
     ImageView imageView;
     Button btn, stopPush, resumePush, wx_share;
     CalendarView calendarView;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+
     private GoogleApiClient client;
     Bitmap bitmap;
     @Override
@@ -66,7 +61,7 @@ public class MainActivity extends BaseActivity {
                 webpage.webpageUrl = "https://www.baidu.com";
                 WXMediaMessage msg = new WXMediaMessage(webpage);
                 msg.title = "asfds";
-                msg.description = "张咪四个几十个覅第三个if多少";
+                msg.description = "三个if多少";
                 msg.setThumbImage(bitmap);
                 SendMessageToWX.Req req = new SendMessageToWX.Req();
                 req.transaction = buildTransaction("webpage");
