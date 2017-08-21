@@ -140,6 +140,11 @@ public class CalendarView extends View {
 
     class DatePoint {
         Calendar mCalendar;
+
+        public Calendar getmCalendar() {
+            return mCalendar;
+        }
+
         int position;
 
         DatePoint(Calendar mCalendar, int position) {
@@ -147,9 +152,7 @@ public class CalendarView extends View {
             this.position = position;
         }
 
-        Calendar getCalendar() {
-            return mCalendar;
-        }
+
 
         public float getX() {
             return ((position % 7 + 0.5f) * dayWidth);
@@ -172,7 +175,8 @@ public class CalendarView extends View {
         drawWeekHeader(canvas);
         for (DatePoint dateP : mDatePoints) {
 
-            dateP.onDraw(canvas);
+//            dateP.onDraw(canvas);
+            drawText(getDay(dateP.getmCalendar())+"", dateP.getX(), dateP.getY()+dayHeight, canvas, mPaintWeekHeader);
         }
     }
 

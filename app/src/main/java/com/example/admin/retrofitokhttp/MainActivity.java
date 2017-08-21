@@ -33,6 +33,10 @@ import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import retrofit2.Response;
 
+/**
+ * ---------
+ */
+
 public class MainActivity extends BaseActivity {
     ImageView imageView;
     Button btn, stopPush, resumePush, wx_share;
